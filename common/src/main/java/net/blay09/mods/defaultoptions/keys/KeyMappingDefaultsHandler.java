@@ -141,6 +141,8 @@ public class KeyMappingDefaultsHandler implements DefaultOptionsHandler {
         KeyMapping.resetMapping();
     }
 
+    @Override
+    public void saveAdditional() {
         // Save the updated known keys to the knownkeys.txt file in the Minecraft directory
         try (PrintWriter writer = new PrintWriter(new FileWriter(new File(DefaultOptions.getMinecraftDataDir(), "knownkeys.txt")))) {
             for (String key : knownKeys) {
