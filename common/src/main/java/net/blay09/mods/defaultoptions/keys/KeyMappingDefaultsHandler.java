@@ -139,7 +139,7 @@ public class KeyMappingDefaultsHandler implements DefaultOptionsHandler {
             }
         }
         KeyMapping.resetMapping();
-        saveCurrentOptions();
+    }
 
         // Save the updated known keys to the knownkeys.txt file in the Minecraft directory
         try (PrintWriter writer = new PrintWriter(new FileWriter(new File(DefaultOptions.getMinecraftDataDir(), "knownkeys.txt")))) {
