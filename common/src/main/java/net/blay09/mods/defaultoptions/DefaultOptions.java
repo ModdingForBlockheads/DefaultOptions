@@ -2,14 +2,11 @@ package net.blay09.mods.defaultoptions;
 
 import net.blay09.mods.balm.api.Balm;
 import net.blay09.mods.balm.api.event.client.ClientStartedEvent;
-import net.blay09.mods.defaultoptions.api.DefaultOptionsAPI;
 import net.blay09.mods.defaultoptions.api.DefaultOptionsCategory;
 import net.blay09.mods.defaultoptions.api.DefaultOptionsHandler;
 import net.blay09.mods.defaultoptions.command.DefaultOptionsCommand;
 import net.blay09.mods.defaultoptions.config.DefaultOptionsConfig;
 import net.blay09.mods.defaultoptions.difficulty.DefaultDifficultyHandler;
-import net.blay09.mods.defaultoptions.keys.KeyMappingDefaultsHandler;
-import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class DefaultOptions {
 

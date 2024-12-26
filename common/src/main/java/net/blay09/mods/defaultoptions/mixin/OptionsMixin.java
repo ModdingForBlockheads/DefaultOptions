@@ -13,4 +13,9 @@ public class OptionsMixin {
     private void load(CallbackInfo ci) {
         DefaultOptionsInitializer.preLoad();
     }
+
+    @Inject(method = "save()V", at = @At("RETURN"))
+    private void save(CallbackInfo ci) {
+        DefaultOptionsInitializer.postSave();
+    }
 }
