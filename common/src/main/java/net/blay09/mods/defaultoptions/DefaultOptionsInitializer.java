@@ -34,4 +34,10 @@ public class DefaultOptionsInitializer {
             }
         }
     }
+
+    public static void postSave() {
+        for (DefaultOptionsHandler handler : DefaultOptions.getDefaultOptionsHandlers()) {
+            handler.saveAdditional();
+        }
+    }
 }

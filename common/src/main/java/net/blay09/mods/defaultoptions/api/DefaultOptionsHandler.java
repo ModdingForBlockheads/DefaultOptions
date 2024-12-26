@@ -11,4 +11,5 @@ public interface DefaultOptionsHandler {
     boolean hasDefaults();
     boolean shouldLoadDefaults();
     void loadDefaults() throws DefaultOptionsHandlerException;
+    default void saveAdditional() {}
 }
