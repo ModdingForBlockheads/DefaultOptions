@@ -1,18 +1,17 @@
 package net.blay09.mods.defaultoptions.forge;
 
 import net.blay09.mods.balm.api.Balm;
-import net.blay09.mods.balm.api.EmptyLoadContext;
 import net.blay09.mods.balm.api.client.BalmClient;
 import net.blay09.mods.balm.api.client.keymappings.KeyModifier;
+import net.blay09.mods.balm.forge.ForgeLoadContext;
 import net.blay09.mods.defaultoptions.DefaultOptions;
 import net.blay09.mods.defaultoptions.PlatformBindings;
 import net.blay09.mods.defaultoptions.forge.mixin.ForgeKeyMappingAccessor;
 import net.minecraft.client.KeyMapping;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.IExtensionPoint;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import java.util.Collections;
 import java.util.Set;
@@ -20,7 +19,8 @@ import java.util.Set;
 @Mod(DefaultOptions.MOD_ID)
 public class ForgeDefaultOptions {
 
-    public ForgeDefaultOptions() {
+    public ForgeDefaultOptions(FMLJavaModLoadingContext context) {
+        final var loadContext = new ForgeLoadContext(context.getModEventBus());
         PlatformBindings.INSTANCE = new PlatformBindings() {
             @Override
             public void setDefaultKeyModifiers(KeyMapping keyMapping, Set<KeyModifier> keyModifiers) {
@@ -71,15 +71,13 @@ public class ForgeDefaultOptions {
             }
         };
 
-        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
-            Balm.initialize(DefaultOptions.MOD_ID, EmptyLoadContext.INSTANCE, () -> {
+        if (FMLEnvironment.dist.isClient()) {
+            Balm.initialize(DefaultOptions.MOD_ID, loadContext, () -> {
             });
-            BalmClient.initialize(DefaultOptions.MOD_ID, EmptyLoadContext.INSTANCE, DefaultOptions::initialize);
-        });
+            BalmClient.initialize(DefaultOptions.MOD_ID, loadContext, DefaultOptions::initialize);
+        }
 
-        ModLoadingContext.get()
-                .registerExtensionPoint(IExtensionPoint.DisplayTest.class,
-                        () -> new IExtensionPoint.DisplayTest(() -> IExtensionPoint.DisplayTest.IGNORESERVERONLY, (a, b) -> true));
+        context.registerDisplayTest(IExtensionPoint.DisplayTest.IGNORE_ALL_VERSION);
     }
 
 }
